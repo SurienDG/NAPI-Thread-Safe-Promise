@@ -4,7 +4,6 @@
 #include <functional>
 #include <memory>
 #include <thread>
-#include "json.hpp"
 #include "napi-thread-safe-callback.hpp"
 
 void promiseFuncWrapper(const Napi::Function &resolveInput, const PromiseFunc &promFunc)

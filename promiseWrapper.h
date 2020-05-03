@@ -4,7 +4,6 @@
 
 #include <napi.h>
 #include <functional>
-#include "napi-thread-safe-callback.hpp"
 
 // promise function types
 typedef std::function<void(const std::string args)> resolveFunc;

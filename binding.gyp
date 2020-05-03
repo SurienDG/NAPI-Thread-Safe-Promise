@@ -4,7 +4,7 @@
       "target_name": "chessFunctions",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "chessJS.cc", "promiseWrapper.cc" ],
+      "sources": ["promiseWrapper.cc" ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
         "<!@(node -p \"require('napi-thread-safe-callback').include\")"
