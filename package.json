@@ -1,14 +1,13 @@
 {
-  "name": "chess_functions",
+  "name": "napi_thread_safe_promise",
   "version": "1.0.0",
-  "description": "c++ chess functions",
+  "description": "C++ napi thread safe promises",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node-gyp rebuild"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Surien Das-Giwojno",
-  "license": "MIT",
+  "license": "BSD 3-Clause",
   "gypfile": true,
   "dependencies": {
     "bindings": "^1.5.0",

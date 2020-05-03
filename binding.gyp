@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "chessFunctions",
+      "target_name": "napi_thread_safe_promise",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "sources": ["promiseWrapper.cc" ],
