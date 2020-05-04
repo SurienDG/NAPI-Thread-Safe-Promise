@@ -6,10 +6,12 @@
 #include <thread>
 #include "napi-thread-safe-callback.hpp"
 
-void promiseFuncWrapper(const Napi::Function &resolveInput, const PromiseFunc &promFunc)
+void promiseFuncWrapper(const Napi::Function &resolveInput, const Napi::Function &rejectInput, const PromiseFunc &promFunc)
 {
     std::shared_ptr<ThreadSafeCallback> resolveInputPtr =
         std::make_shared<ThreadSafeCallback>(resolveInput);
+    std::shared_ptr<ThreadSafeCallback> rejectInputPtr =
+        std::make_shared<ThreadSafeCallback>(rejectInput);
 
     // create resolve function
     resolveFunc resolve = [resolveInputPtr](const std::string argsInput) {
@@ -21,8 +23,8 @@ void promiseFuncWrapper(const Napi::Function &resolveInput, const PromiseFunc &p
             });
     };
     // create reject function
-    rejectFunc reject = [resolveInputPtr](const std::string &msg) {
-        resolveInputPtr->callError(msg);
+    rejectFunc reject = [rejectInputPtr](const std::string &msg) {
+        rejectInputPtr->callError(msg);
     };
     // call our function to do work and either resolve or reject a resolution
     promFunc(resolve, reject);
