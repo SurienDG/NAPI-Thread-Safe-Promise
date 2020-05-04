@@ -18,12 +18,12 @@ void promiseFuncWrapper(const Napi::Function &resolveInput,
                         const Napi::Function &rejectInput,
                         const PromiseFunc &promFunc);
 
-#define PROMISE(info)                                                                                      \
+#define PROMISE(info, funcBody)                                                                                      \
     if (info.Length() < 2)                                                                                 \
     {                                                                                                      \
         throw Napi::Error::New(info.Env(), "requires at least two function arguments");                    \
     }                                                                                                      \
 promiseFuncWrapper(info[info.Length()-2].As<Napi::Function>(), info[info.Length()-1].As<Napi::Function>(), \
-                      [&info](resolveFunc resolve, rejectFunc reject)
+                      [&info](resolveFunc resolve, rejectFunc reject) funcBody)
 
 #endif
