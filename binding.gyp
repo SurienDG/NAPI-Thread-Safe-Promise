@@ -2,6 +2,7 @@
   "targets": [
     {
       "target_name": "napi_thread_safe_promise",
+      "type": "static_library",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "sources": ["promiseWrapper.cc" ],
