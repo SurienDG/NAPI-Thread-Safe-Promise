@@ -13,10 +13,9 @@ struct tfsnContext {
     tfsnContext(Napi::Env env)
         : deffered{Napi::Promise::Deferred::New(env)},
           data{""},
-          resolve{false}, called{false} {};
+          resolve{false},
+          called{false} {};
 };
-
-void FinalizerCallback(Napi::Env env, void *finalizeData, void *context) {}
 
 Napi::Promise promiseFuncWrapper(const Napi::Env env,
                                  const PromiseFunc &promFunc) {
@@ -31,7 +30,7 @@ Napi::Promise promiseFuncWrapper(const Napi::Env env,
                     Napi::String::New(env, context->data));
             } else {
                 context->deffered.Reject(
-                    Napi::String::New(env, context->data));
+                    Napi::Error::New(env, context->data).Value());
             }
             mu->unlock();
         });
@@ -41,7 +40,7 @@ Napi::Promise promiseFuncWrapper(const Napi::Env env,
         mu->lock();
         context->data = argsInput;
         context->resolve = true;
-        if (!context->called){
+        if (!context->called) {
             context->called = true;
             context->tsfn.Release();
         }
@@ -52,7 +51,7 @@ Napi::Promise promiseFuncWrapper(const Napi::Env env,
         mu->lock();
         context->data = msg;
         context->resolve = false;
-        if (!context->called){
+        if (!context->called) {
             context->called = true;
             context->tsfn.Release();
         }
