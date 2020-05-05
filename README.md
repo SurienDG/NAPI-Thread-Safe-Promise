@@ -7,11 +7,10 @@ This npm package is for use in the C++ code to faciliate threadsafe promise func
 
 ### C++ Async Promise Example (made easier with macro)
 ```C++
-void promiseFuncJS(const CallbackInfo& info)
+Napi::Promise promiseFuncJS(const CallbackInfo& info)
 {
   // macro takes in info variable as input
-  // we assume that the last two arguments passed to the promiseFunc from javascript are resolve and reject
-  PROMISE(info, {
+  return PROMISE(info, {
       // now we can write our code here with access to the resolve and reject functions
 
       // we can now take in resolve and reject function to our threaded function because they are thread safe
@@ -19,7 +18,10 @@ void promiseFuncJS(const CallbackInfo& info)
       std::thread([resolve, reject]() {
           // we can pass strings to our resolve and reject functions
           resolve("test");
-      });
+
+          // note secondary calls to resolve or reject will have no effect
+           resolve("test123");
+      }).detacth;
 
   });
 }
@@ -29,18 +31,17 @@ void promiseFuncJS(const CallbackInfo& info)
 
 ### Async Promise Example (without using macro)
 ```C++
-void promiseFuncJS(const CallbackInfo& info)
+Napi::Promise promiseFuncJS(const CallbackInfo& info)
 {  
 
-    promiseFuncWrapper(info[info.Length() - 2].As<Napi::Function>(),  // position of resolve function input   
-                       info[info.Length() - 1].As<Napi::Function>(),  // position of reject function in javascript input
+    return promiseFuncWrapper(info.Env(),
                        [&info](resolveFunc resolve, rejectFunc reject) { // this is a function which we will pass our thread safe resolve and reject functions too
 
                             // here we can write our threaded code
                            std::string arg1 = info[0].As<Napi::String>();
                            std::thread([resolve, reject, arg1]() {
                                reject(arg1);
-                           });
+                           }).detach();
                        });
 }
 ```
@@ -51,9 +52,7 @@ void promiseFuncJS(const CallbackInfo& info)
 
 function promiseFunc(test) {
 
-    return new Promise((resolve, reject) => {
-        promiseFuncJS(test, resolve, reject);
-    });
+    return promiseFuncJS(test);
 }
 
 ```
