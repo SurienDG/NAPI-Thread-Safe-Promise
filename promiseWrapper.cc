@@ -8,11 +8,12 @@ struct tfsnContext {
     Napi::Promise::Deferred deffered;
     std::string data;
     bool resolve;
+    bool called;
     Napi::ThreadSafeFunction tsfn;
     tfsnContext(Napi::Env env)
         : deffered{Napi::Promise::Deferred::New(env)},
           data{""},
-          resolve{false} {};
+          resolve{false}, called{false} {};
 };
 
 void FinalizerCallback(Napi::Env env, void *finalizeData, void *context) {}
@@ -40,16 +41,23 @@ Napi::Promise promiseFuncWrapper(const Napi::Env env,
         mu->lock();
         context->data = argsInput;
         context->resolve = true;
+        if (!context->called){
+            context->called = true;
+            context->tsfn.Release();
+        }
         mu->unlock();
-        context->tsfn.Release();
     };
     // create reject function
     rejectFunc reject = [context, mu](const std::string &msg) {
         mu->lock();
         context->data = msg;
         context->resolve = false;
-        mu->unlock();
+        if (!context->called){
+            context->called = true;
+            context->tsfn.Release();
+        }
         context->tsfn.Release();
+        mu->unlock();
     };
 
     // call our function to do work and either resolve or reject a resolution
