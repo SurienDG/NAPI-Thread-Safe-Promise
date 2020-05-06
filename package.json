@@ -1,6 +1,6 @@
 {
   "name": "napi_thread_safe_promise",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "C++ napi thread safe promises",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
     "type": "git",
     "url": "https://github.com/SurienDG/NAPI-Thread-Safe-Promise"
   },
+  "keywords": ["thread", "napi", "threadsafe", "promise", "c++", "node-addon-api"],
   "devDependencies": {
     "node-gyp": "^6.1.0"
   }
