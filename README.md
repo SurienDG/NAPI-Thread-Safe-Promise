@@ -21,7 +21,7 @@ Napi::Promise promiseFuncJS(const CallbackInfo& info)
 
           // note secondary calls to resolve or reject will have no effect
            resolve("test123");
-      }).detacth;
+      }).detach();
 
   });
 }
@@ -50,10 +50,11 @@ Napi::Promise promiseFuncJS(const CallbackInfo& info)
 
 ```Javascript
 
-function promiseFunc(test) {
-
-    return promiseFuncJS(test);
-}
+ promiseFuncJS(test).then(output => {
+      console.log(output);
+ }).catch(err => {
+      console.error(err);
+ });
 
 ```
 
