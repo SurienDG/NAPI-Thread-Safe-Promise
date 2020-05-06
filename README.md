@@ -1,6 +1,8 @@
 # NAPI-Thread-Safe-Promise
 
-This npm package is for use in the C++ code to faciliate threadsafe promise functions in the C++ code.
+This npm package is to be used in conjunction with the napi module to call C++ code from javascript. 
+
+This allows the user to call threadsafe promise functions (resolve, reject) in the C++ code (and return a promise to the javascript code).
 
 ## Examples
 
