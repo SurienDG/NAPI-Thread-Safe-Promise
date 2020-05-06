@@ -63,7 +63,7 @@ Napi::Promise promiseFuncJS(const CallbackInfo& info)
 
   1. Add a dependency on this package to `package.json`: 
    ```
-   npm install SurienDG/NAPI-Thread-Safe-Promise
+   npm i napi_thread_safe_promise
    ```
   2. Reference this package's include directory in `binding.gyp`:
 ```gyp
