@@ -1,13 +1,53 @@
 # NAPI-Thread-Safe-Promise
 
-This npm package is to be used in conjunction with the napi module to call C++ code from javascript. 
+[![npm version](https://badge.fury.io/js/napi_thread_safe_promise.svg)](https://badge.fury.io/js/napi_thread_safe_promise)
+![https://img.shields.io/maintenance/yes/2020](https://img.shields.io/maintenance/yes/2020)
+![https://img.shields.io/github/license/SurienDG/NAPI-Thread-Safe-Promise](https://img.shields.io/github/license/SurienDG/NAPI-Thread-Safe-Promise)
 
-This allows the user to call threadsafe promise functions (resolve, reject) in the C++ code (and return a promise to the javascript code).
+- [NAPI-Thread-Safe-Promise](#napi-thread-safe-promise)
+  - [Introduction](#introduction)
+  - [Usage](#usage)
+  - [Examples](#examples)
+    - [Async Promise Example (with macro)](#async-promise-example-with-macro)
+    - [Async Promise Example (without using macro)](#async-promise-example-without-using-macro)
+    - [JavaScript code for the code examples above](#javascript-code-for-the-code-examples-above)
+    - [Exception handling](#exception-handling)
+  - [Contribution](#contribution)
+  - [License](#license)
+
+## Introduction
+
+**NOTE**: This package assumes understanding of N-API
+
+To be used in conjunction with the N-API module to call C++ code from JavaScript.  
+
+Allows the user to call thread safe promise functions such (resolve, reject) in the C++ code and return a promise to the javascript code.
+
+## Usage
+
+1. Install the package using node package manager: 
+
+```sh
+npm install napi_thread_safe_promise
+```
+
+2. Reference this package's include directory in `binding.gyp`:
+
+```gyp
+'include_dirs': ["<!@(node -p \"require('napi_thread_safe_promise').include\")"],
+"libraries": ["<!@(node -p \"require('napi_thread_safe_promise').libraries\")" ],
+```
+
+3. Include the header in your code:
+
+```C++
+#include "promiseWrapper.h"
+```
 
 ## Examples
 
+### Async Promise Example (with macro)
 
-### C++ Async Promise Example (made easier with macro)
 ```C++
 Napi::Promise promiseFuncJS(const CallbackInfo& info)
 {
@@ -33,65 +73,58 @@ Napi::Promise promiseFuncJS(const CallbackInfo& info)
 
 ### Async Promise Example (without using macro)
 ```C++
-Napi::Promise promiseFuncJS(const CallbackInfo& info)
-{  
+Napi::Promise promiseFuncJS(const CallbackInfo& info) {
+  return promiseFuncWrapper(info.Env(),
+      
+      [&info](resolveFunc resolve, rejectFunc reject) { // anonymous function passed to thread safe resolve and reject functions
 
-    return promiseFuncWrapper(info.Env(),
-                       [&info](resolveFunc resolve, rejectFunc reject) { // this is a function which we will pass our thread safe resolve and reject functions too
+        // here we can write our threaded code
 
-                            // here we can write our threaded code
-                           std::string arg1 = info[0].As<Napi::String>();
-                           std::thread([resolve, reject, arg1]() {
-                               reject(arg1);
-                           }).detach();
-                       });
+          std::string arg1 = info[0].As<Napi::String>();
+          std::thread([resolve, reject, arg1]() {
+            reject(arg1);
+          }).detach();
+      }
+  );
 }
 ```
 
-## Corresponding Javascript code for the code examples examples above by could look like this
+### JavaScript code for the code examples above
 
 ```Javascript
-
- promiseFuncJS(test).then(output => {
-      console.log(output);
- }).catch(err => {
-      console.error(err);
- });
-
-```
-
-
-## Usage
-
-  1. Add a dependency on this package to `package.json`: 
-   ```
-   npm i napi_thread_safe_promise
-   ```
-  2. Reference this package's include directory in `binding.gyp`:
-```gyp
-  'include_dirs': ["<!@(node -p \"require('napi_thread_safe_promise').include\")"],
-   "libraries": ["<!@(node -p \"require('napi_thread_safe_promise').libraries\")" ],
-```
-  3. Include the header in your code:
-```C++
-#include "promiseWrapper.h"
+promiseFuncJS(test)
+  .then(output => {
+    console.log(output);
+  })
+  .catch(err => {
+    console.error(err);
+  });
 ```
 
 ### Exception handling
 
-If we wish to have the ability for exceptions add the following to  `binding.gyp`:
+To have the ability for exceptions add the following to `binding.gyp`:
+
 ```gyp
-  'cflags!': [ '-fno-exceptions' ],
-  'cflags_cc!': [ '-fno-exceptions' ],
-  'xcode_settings': {
-    'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
-    'CLANG_CXX_LIBRARY': 'libc++',
-    'MACOSX_DEPLOYMENT_TARGET': '10.7',
-  },
-  'msvs_settings': {
-    'VCCLCompilerTool': { 'ExceptionHandling': 1 },
-  },
-  'conditions': [
-    ['OS=="win"', { 'defines': [ '_HAS_EXCEPTIONS=1' ] }]
-  ]
+'cflags!': [ '-fno-exceptions' ],
+'cflags_cc!': [ '-fno-exceptions' ],
+'xcode_settings': {
+  'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
+  'CLANG_CXX_LIBRARY': 'libc++',
+  'MACOSX_DEPLOYMENT_TARGET': '10.7',
+},
+'msvs_settings': {
+  'VCCLCompilerTool': { 'ExceptionHandling': 1 },
+},
+'conditions': [
+  ['OS=="win"', { 'defines': [ '_HAS_EXCEPTIONS=1' ] }]
+]
 ```
+
+## Contribution
+
+For contribution to this package, create a pull request and the maintainer will look into it. 
+
+## License
+
+NAPI-Thread-Safe-Promise is licensed under BSD-3-Clause.
