@@ -7,11 +7,11 @@
 - [NAPI-Thread-Safe-Promise](#napi-thread-safe-promise)
   - [Introduction](#introduction)
   - [Usage](#usage)
+      - [Exception handling](#exception-handling)
   - [Examples](#examples)
     - [Async Promise Example (with macro)](#async-promise-example-with-macro)
     - [Async Promise Example (without using macro)](#async-promise-example-without-using-macro)
     - [JavaScript code for the code examples above](#javascript-code-for-the-code-examples-above)
-    - [Exception handling](#exception-handling)
   - [Contribution](#contribution)
   - [License](#license)
 
@@ -42,6 +42,26 @@ npm install napi_thread_safe_promise
 
 ```C++
 #include "promiseWrapper.h"
+```
+
+### Exception handling
+
+To have the ability for exceptions add the following to `binding.gyp`:
+
+```gyp
+'cflags!': [ '-fno-exceptions' ],
+'cflags_cc!': [ '-fno-exceptions' ],
+'xcode_settings': {
+  'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
+  'CLANG_CXX_LIBRARY': 'libc++',
+  'MACOSX_DEPLOYMENT_TARGET': '10.7',
+},
+'msvs_settings': {
+  'VCCLCompilerTool': { 'ExceptionHandling': 1 },
+},
+'conditions': [
+  ['OS=="win"', { 'defines': [ '_HAS_EXCEPTIONS=1' ] }]
+]
 ```
 
 ## Examples
@@ -99,26 +119,6 @@ promiseFuncJS(test)
   .catch(err => {
     console.error(err);
   });
-```
-
-### Exception handling
-
-To have the ability for exceptions add the following to `binding.gyp`:
-
-```gyp
-'cflags!': [ '-fno-exceptions' ],
-'cflags_cc!': [ '-fno-exceptions' ],
-'xcode_settings': {
-  'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
-  'CLANG_CXX_LIBRARY': 'libc++',
-  'MACOSX_DEPLOYMENT_TARGET': '10.7',
-},
-'msvs_settings': {
-  'VCCLCompilerTool': { 'ExceptionHandling': 1 },
-},
-'conditions': [
-  ['OS=="win"', { 'defines': [ '_HAS_EXCEPTIONS=1' ] }]
-]
 ```
 
 ## Contribution
