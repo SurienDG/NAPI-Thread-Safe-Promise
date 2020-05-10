@@ -5,10 +5,9 @@
       "type": "static_library",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": ["promiseWrapper.cc" ],
+      "sources": ["src/promiseWrapper.cc" ],
       "include_dirs": [
-        "<!@(node -p \"require('node-addon-api').include\")",
-
+        "<!@(node -p \"require('node-addon-api').include\")"
       ],
      "defines": [ "NAPI_CPP_EXCEPTIONS" ],
      "xcode_settings": {
