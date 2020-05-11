@@ -1,2 +1,2 @@
-export const include = `"${__dirname}"/..`;
-export const libraries = `"${__dirname}/../build/Release/napi_thread_safe_promise"`;
+export const include = `"${__dirname}"/../src`;
+export const libraries = `"${__dirname}/Release/napi_thread_safe_promise"`;

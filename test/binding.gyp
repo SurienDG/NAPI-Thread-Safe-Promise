@@ -13,10 +13,10 @@
             ],
             "include_dirs": [
                 "<!@(node -p \"require('node-addon-api').include\")",
-                "<!@(node -p \"require('..\\\\tsbuild\\\index.js').include\")"
+                "<!@(node -p \"require('..\\\\build\\\index.js').include\")"
             ],
             "libraries": [
-                "<!@(node -p \"require('..\\\\tsbuild\\\index.js').libraries\")"
+                "<!@(node -p \"require('..\\\\build\\\index.js').libraries\")"
             ],
             "defines": [
                 "NAPI_CPP_EXCEPTIONS"

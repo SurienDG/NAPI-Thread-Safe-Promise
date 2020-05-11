@@ -1,17 +1,16 @@
 {
   "name": "napi_thread_safe_promise",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "C++ napi thread safe promises",
-  "main": "tsbuild/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "npm run test-rebuild",
+    "build": "node-gyp configure build --release --no-debug && tsc",
     "test-rebuild": "node-gyp configure build --directory test --debug",
-    "test-clean": "node-gyp clean --directory test",
-    "install": "node-gyp configure build && tsc"
+    "test-clean": "node-gyp clean --directory test"
   },
   "author": "Surien Das-Giwojno",
   "license": "BSD-3-Clause",
-  "gypfile": true,
   "dependencies": {},
   "repository": {
     "type": "git",
@@ -33,5 +32,10 @@
     "node-gyp": "^6.1.0",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3"
-  }
+  },
+  "files": [
+    "/**/*.h",
+    "/**/*.js",
+    "/**/*.lib"
+  ]
 }
