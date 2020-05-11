@@ -1,13 +1,14 @@
 {
   "name": "napi_thread_safe_promise",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "C++ napi thread safe promises",
   "main": "build/index.js",
   "scripts": {
     "test": "npm run test-rebuild",
     "build": "node-gyp configure build --release --no-debug && tsc",
     "test-rebuild": "node-gyp configure build --directory test --debug",
-    "test-clean": "node-gyp clean --directory test"
+    "test-clean": "node-gyp clean --directory test",
+    "prepare": "npm run build"
   },
   "author": "Surien Das-Giwojno",
   "license": "BSD-3-Clause",
