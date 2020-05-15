@@ -36,7 +36,8 @@
     "typescript": "^3.8.3"
   },
   "files": [
-    "/src/",
+    "/src/*.h",
+    "/src/*.cc",
     "/**/*.js",
     "/binding.gyp"
   ]
