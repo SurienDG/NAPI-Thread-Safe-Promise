@@ -39,6 +39,17 @@
                             "_HAS_EXCEPTIONS=1"
                         ]
                     }
+                ],
+                [
+                    "OS==\"mac\"",
+                    {
+                        "cflags+": [
+                            "-fvisibility=hidden"
+                        ],
+                        "xcode_settings": {
+                            "GCC_SYMBOLS_PRIVATE_EXTERN": "YES"
+                        }
+                    }
                 ]
             ]
         }

@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "npm run test-rebuild",
-    "build": "node-gyp configure build --release --no-debug && tsc",
+    "build": "tsc",
     "test-rebuild": "node-gyp configure build --directory test --debug",
     "test-clean": "node-gyp clean --directory test",
     "prepare": "npm run build"
@@ -37,6 +37,6 @@
   "files": [
     "/**/*.h",
     "/**/*.js",
-    "/**/*.lib"
+    "/**/*.cc"
   ]
 }
