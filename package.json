@@ -1,6 +1,6 @@
 {
   "name": "napi_thread_safe_promise",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "description": "C++ napi thread safe promises",
   "main": "build/index.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "test-clean": "node-gyp clean --directory test",
     "prepare": "npm run build"
   },
+  "gypfile": false,
   "author": "Surien Das-Giwojno",
   "license": "BSD-3-Clause",
   "dependencies": {},
@@ -35,8 +36,8 @@
     "typescript": "^3.8.3"
   },
   "files": [
-    "/**/*.h",
+    "/src/",
     "/**/*.js",
-    "/**/*.cc"
+    "/binding.gyp"
   ]
 }
