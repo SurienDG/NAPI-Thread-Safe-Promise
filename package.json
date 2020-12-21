@@ -1,7 +1,7 @@
 {
   "name": "napi_thread_safe_promise",
-  "version": "1.1.1",
-  "description": "C++ napi thread safe promises",
+  "version": "1.1.2",
+  "description": "C++ napi threadd safe promises",
   "main": "build/index.js",
   "scripts": {
     "test": "npm run test-rebuild",
@@ -10,7 +10,6 @@
     "test-clean": "node-gyp clean --directory test",
     "prepare": "npm run build"
   },
-  "gypfile": false,
   "author": "Surien Das-Giwojno",
   "license": "BSD-3-Clause",
   "repository": {
@@ -25,11 +24,14 @@
     "c++",
     "node-addon-api"
   ],
+  "gypfile": false,
+  "dependencies": {
+    "node-addon-api": "^3.0.0"
+  },
   "devDependencies": {
     "@types/bindings": "^1.3.0",
     "@types/node": "^13.13.5",
     "bindings": "^1.5.0",
-    "node-addon-api": "^3.0.0",
     "node-gyp": "^6.1.0",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3"

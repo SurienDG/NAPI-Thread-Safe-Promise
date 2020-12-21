@@ -7,7 +7,7 @@
 - [NAPI-Thread-Safe-Promise](#napi-thread-safe-promise)
   - [Introduction](#introduction)
   - [Usage](#usage)
-      - [Exception handling](#exception-handling)
+    - [Exception handling](#exception-handling)
   - [Examples](#examples)
     - [Async Promise Example (with macro)](#async-promise-example-with-macro)
     - [Async Promise Example (without using macro)](#async-promise-example-without-using-macro)
@@ -43,6 +43,8 @@ npm install napi_thread_safe_promise
 ```C++
 #include "promiseWrapper.h"
 ```
+
+**Note:** Currently latest node version has bugs with regards to gyp so use the latest stable version (should be `v14.15.3` as of now)
 
 ### Exception handling
 
