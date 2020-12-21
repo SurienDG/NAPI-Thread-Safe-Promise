@@ -12,11 +12,8 @@
                 "test.cc"
             ],
             "include_dirs": [
-                "<!@(node -p \"require('node-addon-api').include\")",
-                "<!@(node -p \"require('..\\\\build\\\index.js').include\")"
-            ],
-            "libraries": [
-                "<!@(node -p \"require('..\\\\build\\\index.js').libraries\")"
+                "<!@(node -p \"require('node-addon-api').include_dir\")",
+                "<!@(node -p \"require('../build/index.js').include\")"
             ],
             "defines": [
                 "NAPI_CPP_EXCEPTIONS"
