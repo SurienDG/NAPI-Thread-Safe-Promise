@@ -1,7 +1,7 @@
 # NAPI-Thread-Safe-Promise
 
 [![npm version](https://badge.fury.io/js/napi_thread_safe_promise.svg)](https://badge.fury.io/js/napi_thread_safe_promise)
-![https://img.shields.io/maintenance/yes/2020](https://img.shields.io/maintenance/yes/2020)
+![https://img.shields.io/maintenance/yes/2021](https://img.shields.io/maintenance/yes/2021)
 ![https://img.shields.io/github/license/SurienDG/NAPI-Thread-Safe-Promise](https://img.shields.io/github/license/SurienDG/NAPI-Thread-Safe-Promise)
 
 - [NAPI-Thread-Safe-Promise](#napi-thread-safe-promise)
