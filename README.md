@@ -35,7 +35,6 @@ npm install napi_thread_safe_promise
 
 ```gyp
 'include_dirs': ["<!@(node -p \"require('napi_thread_safe_promise').include\")"],
-"dependencies": ["<!(node -p \"require('napi_thread_safe_promise').gyp\")"]
 ```
 
 3. Include the header in your code:
