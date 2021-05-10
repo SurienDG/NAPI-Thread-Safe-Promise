@@ -2,7 +2,6 @@
   "targets": [
     {
       "target_name": "napi_thread_safe_promise",
-      "type": "static_library",
       "cflags!": [
         "-fno-exceptions"
       ],
