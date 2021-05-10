@@ -1,6 +1,6 @@
 {
   "name": "napi_thread_safe_promise",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "C++ napi threadd safe promises",
   "main": "build/index.js",
   "scripts": {
